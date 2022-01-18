@@ -46,19 +46,17 @@ public class GameManager : MonoBehaviour
     public void NextStage()
     {
     
-        NextPlayerReposition();
 
         //Game Clear
         //Player Control Lock
         if(stage%3 == 0){
-            PlayerPrefs.SetInt("stage", stage/3+2);
+            PlayerPrefs.SetInt("stage", stage/3+1);
             Time.timeScale = 0;
             //Result UI
             Debug.Log("클리어");
             //Restart Button UI
         }
-
-
+        NextPlayerReposition();
         //Calculate Point
         totalPoint += stagePoint;
         stagePoint = 0;
@@ -93,7 +91,10 @@ public class GameManager : MonoBehaviour
 
     public void NextPlayerReposition(){
         PlayerPrefs.SetInt("trycount",trycount);
-        SceneManager.LoadScene((stage+1).ToString());
+        if(stage%3 == 0) {
+            SceneManager.LoadScene("scene1");
+        }
+        else SceneManager.LoadScene((stage+1).ToString());
         // player.transform.position = new Vector3(0, 0, 0);
         // player.transform.localScale = Vector3.one;
         // playerHealth.currentHealth = 3;
